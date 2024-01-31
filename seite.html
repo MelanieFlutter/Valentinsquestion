@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* 100% der Viewport-Höhe */
+            margin: 0; /* Entfernen Sie den standardmäßigen Body-Margin */
+            color: white; /* Textfarbe weiß, um auf dem blauen Hintergrund sichtbar zu sein */
+            position: relative;
+        }
+        .image-container {
+            position: absolute;
+            top: 30%; /* 50% von der Oberseite des Body */
+            left: 50%; /* 50% von der linken Seite des Body */
+            transform: translate(-50%, -50%); /* Zentrierung des Bildes */
+            margin-bottom: 70px;
+        }
+        .image-container2{
+            position: absolute;
+            top: 85%; /* 50% von der Oberseite des Body */
+            left: 50%; /* 50% von der linken Seite des Body */
+            transform: translate(-50%, -50%); /* Zentrierung des Bildes */
+            margin-bottom: 70px;
+        }
+        .video-container {
+            position: absolute;
+            top: 30%; /* 50% von der Oberseite des Body */
+            left: 50%; /* 50% von der linken Seite des Body */
+            transform: translate(-50%, -50%); /* Zentrierung des Bildes */
+            margin-bottom: 70px;
+        }
+        img {
+            width: 200px; /* Breite des Bildes */
+            height: auto; /* Automatische Höhe beibehalten */
+            margin: 60px;
+            display: block;
+            
+        }
+        p {
+            z-index: 0; /* Standard-Z-Index für den Text, um sicherzustellen, dass er unter dem Bild liegt */
+            color: rgb(249, 34, 34);
+            font-size: 25px;
+            
+        }
+        video {
+            max-width: 100%; /* Maximale Breite auf 100% setzen */
+            max-height: 100%; /* Maximale Höhe auf 100% setzen */
+            width: auto; /* Automatische Breite beibehalten */
+            height: auto; /* Automatische Höhe beibehalten */
+            position: absolute;
+            top: 50%; /* 50% von der Oberseite des Bildschirms */
+            left: 50%; /* 50% von der linken Seite des Bildschirms */
+            transform: translate(-50%, -50%); /* Zentrierung des Videos */
+            display: none; /* Video standardmäßig ausblenden */
+        }
+        .button-container {
+            position:absolute;
+            margin-top: 70px; /* Abstand zwischen dem Text und den Buttons */
+            display: flex;
+            bottom: 35%;
+            z-index: 1; /* Buttons über den Video-Elementen positionieren */
+        }
+
+        button {
+            margin: 0 20px; /* Abstand zwischen den Buttons */
+            padding: 10px; /* Innenabstand der Buttons */
+            background-color: rgb(229, 60, 60);
+            color: rgb(251, 251, 251);
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(165, 212, 245)">
+
+    <img src="images/LinkesBild.jpg" alt="Left Image">
+
+    <p>Do you want to be my Valentine?</p>
+
+    <div class="image-container2">
+        <img id="catImage" src="images/Cat.jpg" alt="KatzenBild">
+    </div>
+
+    <div class="image-container">
+        <img src="images/VolleyballHerz.jpg" alt="Herz-Bild">
+    </div>
+
+    <img src="images/RechtesBild.jpg" alt="Right Image">
+
+    <div class="video-container">
+        <video id="yesVideo" controls>
+            <source src="videos/happyCat.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="button-container">
+        <button id="yesButton" onclick="handleYes()">Yes</button>
+        <button id="noButton" onclick="moveNoButton()">No</button>
+    </div>
+
+    <script>
+        function handleYes() {
+            // Video anzeigen, wenn "Yes"-Button geklickt wird
+            var yesVideo = document.getElementById('yesVideo');
+            yesVideo.style.display = 'block';
+            yesVideo.play();
+
+            // Bild anzeigen, wenn "Yes"-Button geklickt wird
+            var catImage = document.getElementById("catImage");
+            catImage.style.display = 'block';
+        }
+        // Initial das Katzenbild ausblenden
+        document.getElementById("catImage").style.display = 'none';
+
+        function moveNoButton() {
+            var textElement = document.querySelector('p');
+            var textRect = textElement.getBoundingClientRect();
+
+            // Rahmengröße um den Text
+            var frameMargin = 5;
+
+            // Zufällige Position innerhalb des Rahmens generieren
+            var newX = textRect.left + frameMargin + Math.random() * (textRect.width - 2 * frameMargin);
+            var newY = textRect.top + frameMargin + Math.random() * (textRect.height - 2 * frameMargin);
+
+            // No-Button verschieben
+            var noButton = document.getElementById('noButton');
+            noButton.style.position = 'absolute';
+            noButton.style.left = newX + 'px';
+            noButton.style.top = newY + 'px';
+        }
+        
+    </script>
+</body>
+</html>
